@@ -1,0 +1,11 @@
+.root {
+    -fx-background-image: url("crystal.jpg");
+}
+.tab-pane * .tab-header-background {
+    -fx-background-image: url("crystal.jpg");
+    -fx-border-color: white;
+}
+
+.label {
+    -fx-text-fill: #a9a9a9;
+}
