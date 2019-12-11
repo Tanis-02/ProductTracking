@@ -39,7 +39,11 @@ public class Controller {
 
   @FXML
   void addProduct(MouseEvent event) {
+    String addProductsField = productionTf.getText();
+    String addManufactureField = manufactureTf.getText();
+    ItemType itemTypeChoice = itemTypeChB.getValue();
 
+    
   }
 
   @FXML
@@ -63,6 +67,12 @@ public class Controller {
       System.out.println("connected");
       // STEP 3: Execute a query
       stmt = conn.createStatement();
+
+      String sql =
+          "INSERT INTO Product(type, manufacturer, name) VALUES ( 'AUDIO', 'Apple', 'iPod')";
+      PreparedStatement preparedStatement =
+          conn.prepareStatement(sql);
+      preparedStatement.execute();
 
 
       // STEP 4: Clean-up environment
