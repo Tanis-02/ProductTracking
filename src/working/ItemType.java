@@ -2,7 +2,7 @@ package working;
 
 /**@author Elizabeth Gonzalez
  *
- * Fills the choice box with the types of products we have for our program
+ * Enum with the item types
  *
  * */
 
@@ -12,15 +12,15 @@ public enum ItemType {
   AUDIO_MOBILE("AM"),
   VISUAL_MOBILE("VM");
 
-  public final String code;
+ String type;
 
-  /** @param code */
-  ItemType(String code) {
-    this.code = code;
+  /** @param value */
+  ItemType(String value) {
+    type = value;
   }
 
   /** @return */
-  public String code() {
-    return code;
+  public String getItemType() {
+    return type;
   }
 }

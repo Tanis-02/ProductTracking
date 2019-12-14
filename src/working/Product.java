@@ -1,33 +1,50 @@
 package working;
 
+/**
+ * Abstract class named Products that implements Item
+ * @author Elizabeth Gonzalez
+ **/
 public abstract class Product implements Item {
-  private int Id;
-  private ItemType Type;
-  private String Manufacturer;
-  private String Name;
+  private int id;
+  private ItemType type;
+  private String manufacturer;
+  private String name;
   /** @return */
   public int getId() {
-    return Id;
+    return id;
+  }
+
+  public void setId(int id){
+    this.id = id;
   }
 
   /** @param name */
   public void setName(String name) {
-    Name = name;
+    this.name = name;
   }
 
   /** @return */
   public String getName() {
-    return Name;
+    return name;
   }
 
   /** @param manufacturer */
   public void setManufacturer(String manufacturer) {
-    Manufacturer = manufacturer;
+    this.manufacturer = manufacturer;
   }
 
   /** @return */
   public String getManufacturer() {
-    return Manufacturer;
+    return manufacturer;
+  }
+
+  /** @param type */
+  public void setType(ItemType type){
+    this.type = type;
+  }
+
+  public ItemType getType(){
+    return type;
   }
 
   /**
@@ -36,13 +53,26 @@ public abstract class Product implements Item {
    * @param type
    */
   public Product(String name, String manufacturer, ItemType type) {
-    this.Name = name;
-    this.Manufacturer = manufacturer;
-    this.Type = type;
+    this.name = name;
+    this.manufacturer = manufacturer;
+    this.type = type;
+  }
+
+  /**
+   * @param id
+   * @param name
+   * @param manufacturer
+   * @param type
+   */
+  public Product(int id, String name, String manufacturer, ItemType type) {
+    this.id = id;
+    this.name = name;
+    this.manufacturer = manufacturer;
+    this.type = type;
   }
 
   /** @return */
   public String toString() {
-    return "Name: " + Name + "\nManufacturer: " + Manufacturer + "\nType: " + Type;
+    return "Name: " + name + "\nManufacturer: " + manufacturer + "\nType: " + type;
   }
 }

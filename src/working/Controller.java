@@ -1,12 +1,10 @@
 package working;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.*;
@@ -26,7 +24,19 @@ public class Controller {
   private Button addProductBtn;
 
   @FXML
-  private TableView<?> existingTV;
+  private TableView<Product> existingTV;
+
+  @FXML
+  private TableColumn<?, ?> tvNameCol;
+
+  @FXML
+  private TableColumn<?, ?> tvManuCol;
+
+  @FXML
+  private TableColumn<?, ?> tvTypeCol;
+
+  @FXML
+  private ObservableList<Product> productionLine = FXCollections.observableArrayList();
 
   @FXML
   private ListView<?> chooseTxtA;
@@ -38,25 +48,39 @@ public class Controller {
   private Button recordProductionBtn;
 
   @FXML
-  void addProduct(MouseEvent event) {
+  private TextArea productionLogTxA;
+
+  @FXML
+  void addProduct(MouseEvent event) throws SQLException {
     String addProductsField = productionTf.getText();
-    String addManufactureField = manufactureTf.getText();
+    String manufactureField = manufactureTf.getText();
     ItemType itemTypeChoice = itemTypeChB.getValue();
 
-    
+    Connection con = DriverManager.getConnection("jdbc:h2:./res/WorkingProduct");
+    Statement state = con.createStatement();
+
+    String productTable = "INSERT INTO PRODUCT(NAME, MANUFACTURER, TYPE) VALUES ('" + addProductsField + "', '"
+        + manufactureField + "', '" + itemTypeChoice +"')";
+
+    PreparedStatement prep = con.prepareStatement(productTable);
+    prep.executeUpdate();
+
+    productionLine.add(new Widget(addProductsField,manufactureField,itemTypeChoice));
+    System.out.println("Product has been added");
+    System.out.println(productionLine);
   }
 
   @FXML
   void recordProduction(MouseEvent event) {
 
   }
-  public void initialize(){
+
+  Connection conn = null;
+  Statement stmt = null;
+
+  public void initialize() throws SQLException {
     final String JDBC_DRIVER = "org.h2.Driver";
     final String DB_URL = "jdbc:h2:./res/WorkingProduct";
-
-    //  Database credentials
-    Connection conn = null;
-    Statement stmt = null;
 
     try {
       // STEP 1: Register JDBC driver
@@ -66,32 +90,38 @@ public class Controller {
       conn = DriverManager.getConnection(DB_URL);
       System.out.println("connected");
       // STEP 3: Execute a query
-      stmt = conn.createStatement();
 
-      String sql =
-          "INSERT INTO Product(type, manufacturer, name) VALUES ( 'AUDIO', 'Apple', 'iPod')";
-      PreparedStatement preparedStatement =
-          conn.prepareStatement(sql);
-      preparedStatement.execute();
-
-
-      // STEP 4: Clean-up environment
-      conn.close();
-      stmt.close();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
-
     }
 
-    //populates numbers 1-10 to the combo box in Product Tab
+    // populates numbers 1-10 to the combo box in Product Tab
     quanitityCb.getItems().addAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
     quanitityCb.setEditable(true);
 
-    //fills the choiceBox in the product line with the types defined in ItemType Enum in Produce
+    // fills the choiceBox in the product line with the types defined in ItemType Enum in Produce
     // Line Tab
     for (ItemType type : ItemType.values()) {
       itemTypeChB.getItems().add(type);
     }
-}
+
+    // populating Production Record to the Production Log text area
+    productionLogTxA.setEditable(false);
+
+    // populating product tableview
+    populatingProduct();
+    }
+
+  private void populatingProduct() throws SQLException {
+    tvNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+    tvManuCol.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+    tvTypeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
+    existingTV.setItems(productionLine);
+
+    ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM PRODUCT");
+    while (rs.next()) { productionLine.add(new Widget(
+              rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3))));
+    }
+  }
 }
 
