@@ -2,7 +2,7 @@ package working;
 
 public class MoviePlayer extends Product implements MultimediaControl {
   Screen screen;
-  ItemType monitorType;
+  MonitorType monitorType;
 
   /**
    * @param name
@@ -10,7 +10,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
    * @param screen
    * @param monitorType
    */
-  public MoviePlayer(String name, String manufacturer, Screen screen, ItemType monitorType) {
+  public MoviePlayer(String name, String manufacturer, Screen screen, MonitorType monitorType) {
     super(name, manufacturer, ItemType.VISUAL);
     this.screen = screen;
     this.monitorType = monitorType;
@@ -36,11 +36,25 @@ public class MoviePlayer extends Product implements MultimediaControl {
     System.out.println("Next");
   }
 
-  public String toString(){
-    return super.toString() + "\nScreen:" + screen + "\nMonitor Type: " + monitorType;
+  public String toString() {
+    return "Name: "
+        + name
+        + "\n"
+        + "Manufacturer: "
+        + manufacturer
+        + "\n"
+        + "Type: "
+        + type
+        + "\n"
+        + "Screen:"
+        + screen
+        + "\n"
+        + "Monitor Type: "
+        + monitorType;
   }
 
-  public static void testMultimedia(){
-    //AudioPlayer newAudioProduct = new AudioPlayer("DP-X1A","Onkyo","DSD/FLAC/ALAC/WAV/AIFF/MQA/Ogg-Vorbis/MP3/AAC")
+  public static void testMultimedia() {
+    // AudioPlayer newAudioProduct = new
+    // AudioPlayer("DP-X1A","Onkyo","DSD/FLAC/ALAC/WAV/AIFF/MQA/Ogg-Vorbis/MP3/AAC")
   }
 }

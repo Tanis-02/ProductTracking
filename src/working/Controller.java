@@ -123,5 +123,12 @@ public class Controller {
               rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3))));
     }
   }
+
+  private void populatingLog() throws SQLException {
+    ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCTIONRECORD");
+    while(rs.next()){
+      
+    }
+  }
 }
 

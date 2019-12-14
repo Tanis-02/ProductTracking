@@ -5,10 +5,10 @@ package working;
  * @author Elizabeth Gonzalez
  **/
 public abstract class Product implements Item {
-  private int id;
-  private ItemType type;
-  private String manufacturer;
-  private String name;
+  int id;
+  ItemType type;
+  String manufacturer;
+  String name;
   /** @return */
   public int getId() {
     return id;
