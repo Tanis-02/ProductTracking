@@ -39,7 +39,7 @@ public class Controller {
   private ObservableList<Product> productionLine = FXCollections.observableArrayList();
 
   @FXML
-  private ListView<?> chooseTxtA;
+  private ListView<Product> chooseTxtA;
 
   @FXML
   private ComboBox<String> quanitityCb;
@@ -109,10 +109,12 @@ public class Controller {
     productionLogTxA.setEditable(false);
 
     // populating product tableview
-    populatingProduct();
+    loadProduct();
+    loadProductLog();
+    loadProductList();
     }
 
-  private void populatingProduct() throws SQLException {
+  private void loadProduct() throws SQLException {
     tvNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     tvManuCol.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
     tvTypeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -124,11 +126,18 @@ public class Controller {
     }
   }
 
-  private void populatingLog() throws SQLException {
+  private void loadProductLog() throws SQLException {
+    Statement stmt = conn.createStatement();
     ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCTIONRECORD");
     while(rs.next()){
-      
+      ProductionRecord productLog = new ProductionRecord(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getTimestamp(4));
+      productionLogTxA.appendText(productLog.toString());
+      productionLogTxA.setEditable(false);
     }
+  }
+
+  private void loadProductList(){
+    chooseTxtA.setItems(productionLine);
   }
 }
 
