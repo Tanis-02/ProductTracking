@@ -5,7 +5,7 @@ and help from Professors, TAs, and other classmates. At the time of the creation
 I was a novice with Java but as the semester went along, I learned more complicated Java concepts.
 
 ## Demonstration
-![](https://tanis-02.github.io/ProductTracking/src/working/product_project.gif)
+![](.src/working/product_project.gif)
 
 ## Documentation
 [JavaDoc](https://tanis-02.github.io/ProductTracking/docs/index.html)
