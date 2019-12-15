@@ -12,7 +12,7 @@ I was a novice with Java but as the semester went along, I learned more complica
 
 ## Diagrams
 
-
+![Image description](PUBLIC.png)
 ## Getting Started
 
 
