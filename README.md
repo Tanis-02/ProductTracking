@@ -29,7 +29,7 @@ I also got some help from these websites:
 ## Author
 - Elizabeth Gonzalez
 ## License
-
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 I recieved a lot of help from my Professor Scott Vanselow and my TA Damien.
