@@ -2,6 +2,7 @@ package working;
 
 /**
  * Item interface that has the getters and setters for id, name, and manufacturer
+ *
  * @author Elizabeth Gonzalez
  */
 public interface Item {

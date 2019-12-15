@@ -1,5 +1,10 @@
 package working;
 
+/**
+ * This class extends the product class which implements the controls from multimediaControl
+ *
+ * @author ELizabeth Gonzalez
+ */
 public class MoviePlayer extends Product implements MultimediaControl {
   Screen screen;
   MonitorType monitorType;
@@ -36,6 +41,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
     System.out.println("Next");
   }
 
+  /** @return */
   public String toString() {
     return "Name: "
         + name

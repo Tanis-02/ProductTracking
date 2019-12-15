@@ -9,47 +9,54 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.*;
 
+/**
+ * This is the controller class that executes most of the functions in this project
+ *
+ * @author Elizabeth Gonzalez
+ */
 public class Controller {
 
-  @FXML
-  private ChoiceBox<ItemType> itemTypeChB;
+  @FXML private ChoiceBox<ItemType> itemTypeChB;
 
-  @FXML
-  private TextField productionTf;
+  @FXML private TextField productionTf;
 
-  @FXML
-  private TextField manufactureTf;
+  @FXML private TextField manufactureTf;
 
-  @FXML
-  private Button addProductBtn;
+  @FXML private Button addProductBtn;
 
-  @FXML
-  private TableView<Product> existingTV;
+  @FXML private TableView<Product> existingTV;
 
-  @FXML
-  private TableColumn<?, ?> tvNameCol;
+  @FXML private TableColumn<?, ?> tvNameCol;
 
-  @FXML
-  private TableColumn<?, ?> tvManuCol;
+  @FXML private TableColumn<?, ?> tvManuCol;
 
-  @FXML
-  private TableColumn<?, ?> tvTypeCol;
+  @FXML private TableColumn<?, ?> tvTypeCol;
 
-  @FXML
-  private ObservableList<Product> productionLine = FXCollections.observableArrayList();
+  @FXML private ObservableList<Product> productionLine = FXCollections.observableArrayList();
 
-  @FXML
-  private ListView<Product> chooseTxtA;
+  @FXML private ListView<Product> chooseTxtA;
 
-  @FXML
-  private ComboBox<String> quanitityCb;
+  @FXML private ComboBox<String> quanitityCb;
 
-  @FXML
-  private Button recordProductionBtn;
+  @FXML private Button recordProductionBtn;
 
-  @FXML
-  private TextArea productionLogTxA;
+  @FXML private TextArea productionLogTxA;
 
+  @FXML private TextField firstNameTx;
+
+  @FXML private TextField lastNameTx;
+
+  @FXML private Button createEmployeeBtn;
+
+  @FXML private TextArea instructions;
+
+  /**
+   * This is my product button that takes the user input in the product tab and inserts it into the
+   * database
+   *
+   * @param event
+   * @throws SQLException
+   */
   @FXML
   void addProduct(MouseEvent event) throws SQLException {
     String addProductsField = productionTf.getText();
@@ -59,25 +66,60 @@ public class Controller {
     Connection con = DriverManager.getConnection("jdbc:h2:./res/WorkingProduct");
     Statement state = con.createStatement();
 
-    String productTable = "INSERT INTO PRODUCT(NAME, MANUFACTURER, TYPE) VALUES ('" + addProductsField + "', '"
-        + manufactureField + "', '" + itemTypeChoice +"')";
+    String productTable =
+        "INSERT INTO PRODUCT(NAME, MANUFACTURER, TYPE) VALUES ('"
+            + addProductsField
+            + "', '"
+            + manufactureField
+            + "', '"
+            + itemTypeChoice
+            + "')";
 
     PreparedStatement prep = con.prepareStatement(productTable);
     prep.executeUpdate();
 
-    productionLine.add(new Widget(addProductsField,manufactureField,itemTypeChoice));
+    productionLine.add(new Widget(addProductsField, manufactureField, itemTypeChoice));
     System.out.println("Product has been added");
     System.out.println(productionLine);
   }
 
+  /**
+   * @param event
+   * @throws SQLException
+   */
   @FXML
-  void recordProduction(MouseEvent event) {
+  void recordProduction(MouseEvent event) throws SQLException {}
+
+  @FXML
+  void createEmployee(MouseEvent event) throws SQLException {
+    String firstName = firstNameTx.getText();
+    String lastName = lastNameTx.getText();
+
+    Connection con = DriverManager.getConnection("jdbc:h2:./res/WorkingProduct");
+    Statement state = con.createStatement();
+
+    String employee =
+        "INSERT INTO EMPLOYEES(FIRST_NAME,LAST_NAME) VALUES ('"
+            + firstName
+            + "', '"
+            + lastName
+            + "')";
+
+    PreparedStatement prep = con.prepareStatement(employee);
+    prep.executeUpdate();
+
+    instructions.appendText("You're response has been submitted" + "\n" + "Your username, password and email will be created shortly.");
 
   }
 
   Connection conn = null;
   Statement stmt = null;
 
+  /**
+   * this method connects my database and executes other methods that use this connection as well
+   *
+   * @throws SQLException
+   */
   public void initialize() throws SQLException {
     final String JDBC_DRIVER = "org.h2.Driver";
     final String DB_URL = "jdbc:h2:./res/WorkingProduct";
@@ -112,8 +154,13 @@ public class Controller {
     loadProduct();
     loadProductLog();
     loadProductList();
-    }
+  }
 
+  /**
+   * this method loads my product tableview with the data from the database
+   *
+   * @throws SQLException
+   */
   private void loadProduct() throws SQLException {
     tvNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     tvManuCol.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
@@ -121,23 +168,34 @@ public class Controller {
     existingTV.setItems(productionLine);
 
     ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM PRODUCT");
-    while (rs.next()) { productionLine.add(new Widget(
-              rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3))));
+    while (rs.next()) {
+      productionLine.add(
+          new Widget(rs.getString(2), rs.getString(4), ItemType.valueOf(rs.getString(3))));
     }
   }
 
+  /**
+   * this method loads the data from the product table into the production log from the production
+   * list
+   *
+   * @throws SQLException
+   */
   private void loadProductLog() throws SQLException {
     Statement stmt = conn.createStatement();
     ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCTIONRECORD");
-    while(rs.next()){
-      ProductionRecord productLog = new ProductionRecord(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getTimestamp(4));
+    while (rs.next()) {
+      ProductionRecord productLog =
+          new ProductionRecord(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getTimestamp(4));
       productionLogTxA.appendText(productLog.toString());
       productionLogTxA.setEditable(false);
     }
   }
 
-  private void loadProductList(){
+  /**
+   * this method sets the items from the product table in the database intot the production line
+   * list
+   */
+  private void loadProductList() {
     chooseTxtA.setItems(productionLine);
   }
 }
-

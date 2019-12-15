@@ -2,8 +2,9 @@ package working;
 
 /**
  * Abstract class named Products that implements Item
+ *
  * @author Elizabeth Gonzalez
- **/
+ */
 public abstract class Product implements Item {
   int id;
   ItemType type;
@@ -14,7 +15,8 @@ public abstract class Product implements Item {
     return id;
   }
 
-  public void setId(int id){
+  /** @param id */
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -39,11 +41,11 @@ public abstract class Product implements Item {
   }
 
   /** @param type */
-  public void setType(ItemType type){
+  public void setType(ItemType type) {
     this.type = type;
   }
 
-  public ItemType getType(){
+  public ItemType getType() {
     return type;
   }
 

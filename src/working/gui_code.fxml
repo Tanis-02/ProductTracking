@@ -75,13 +75,26 @@
                     </content>
                 </Tab>
                 <Tab text="Production Log">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TextArea fx:id="productionLogTxA" layoutX="62.0" layoutY="109.0" prefHeight="354.0" prefWidth="627.0" />
-                            </children></AnchorPane>
-                    </content>
-                </Tab>
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TextArea fx:id="productionLogTxA" layoutX="62.0" layoutY="109.0" prefHeight="354.0" prefWidth="627.0" />
+                        </children></AnchorPane>
+                </content>
+            </Tab>
+                <Tab text="Employee">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="firstNameTx" layoutX="242.0" layoutY="240.0" />
+                        <TextField fx:id="lastNameTx" layoutX="242.0" layoutY="315.0" />
+                        <Button fx:id="createEmployeeBtn" layoutX="269.0" layoutY="393.0" mnemonicParsing="false" onMouseClicked="#createEmployee" text="Create Employee" />
+                        <Label layoutX="147.0" layoutY="245.0" text="First Name" />
+                        <Label layoutX="148.0" layoutY="320.0" text="Last Name" />
+                        <TextArea fx:id="instructions" layoutX="58.0" layoutY="25.0" prefHeight="139.0" prefWidth="639.0" />
+                     </children></AnchorPane>
+                </content>
+            </Tab>
             </tabs>
         </TabPane>
     </children>

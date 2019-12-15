@@ -13,35 +13,46 @@ public class ProductionRecord {
   String serialNumber;
   Date dateProduced;
 
-  // accessors and mutators
+  /**
+   * accessors and mutators
+   *
+   * @return
+   */
   public int getProductionNumber() {
     return productionNumber;
   }
 
+  /** @param productionNumber */
   public void setProductionNumber(int productionNumber) {
     this.productionNumber = productionNumber;
   }
 
+  /** @return */
   public int getProductID() {
     return productID;
   }
 
+  /** @param productID */
   public void setProductID(int productID) {
     this.productID = productID;
   }
 
+  /** @return */
   public String getSerialNumber() {
     return serialNumber;
   }
 
+  /** @param serialNumber */
   public void setSerialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
   }
 
+  /** @return */
   public Date getDateProduced() {
     return dateProduced;
   }
 
+  /** @param dateProduced */
   public void setDateProduced(Date dateProduced) {
     this.dateProduced = dateProduced;
   }
@@ -74,6 +85,19 @@ public class ProductionRecord {
     this.dateProduced = dateProduced;
   }
 
+  /**
+   * @param product
+   * @param counter
+   */
+  ProductionRecord(Product product, int counter) {
+    String idNumber = String.format("%05d", counter);
+    this.serialNumber =
+        product.getManufacturer().substring(0, 3) + product.getType().getItemType() + idNumber;
+
+    this.dateProduced = new Date();
+  }
+
+  /** @return */
   public String toString() {
     return ("Prod. Num: "
         + productionNumber
