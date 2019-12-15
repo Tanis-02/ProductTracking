@@ -59,9 +59,20 @@ public class Controller {
    */
   @FXML
   void addProduct(MouseEvent event) throws SQLException {
+    if(productionTf.getText().equalsIgnoreCase("")){
+      Alert error = new Alert(Alert.AlertType.ERROR);
+      error.setContentText("Enter a product.");
+      error.show();
+    } else if(manufactureTf.getText().equalsIgnoreCase("")){
+      Alert error = new Alert(Alert.AlertType.ERROR);
+      error.setContentText("Enter a manufacturer.");
+      error.show();
+    }else{
+
     String addProductsField = productionTf.getText();
     String manufactureField = manufactureTf.getText();
     ItemType itemTypeChoice = itemTypeChB.getValue();
+
 
     Connection con = DriverManager.getConnection("jdbc:h2:./res/WorkingProduct");
     Statement state = con.createStatement();
@@ -81,6 +92,7 @@ public class Controller {
     productionLine.add(new Widget(addProductsField, manufactureField, itemTypeChoice));
     System.out.println("Product has been added");
     System.out.println(productionLine);
+    }
   }
 
   /**
@@ -92,24 +104,36 @@ public class Controller {
 
   @FXML
   void createEmployee(MouseEvent event) throws SQLException {
-    String firstName = firstNameTx.getText();
-    String lastName = lastNameTx.getText();
+    if (firstNameTx.getText().equalsIgnoreCase("")) {
+      Alert error = new Alert(Alert.AlertType.ERROR);
+      error.setContentText("Enter your first name.");
+      error.show();
+      }else if(lastNameTx.getText().equalsIgnoreCase("")){
+      Alert error = new Alert(Alert.AlertType.ERROR);
+      error.setContentText("Enter your last name.");
+      error.show();
+    } else {
+      String firstName = firstNameTx.getText();
+      String lastName = lastNameTx.getText();
 
-    Connection con = DriverManager.getConnection("jdbc:h2:./res/WorkingProduct");
-    Statement state = con.createStatement();
+      Connection con = DriverManager.getConnection("jdbc:h2:./res/WorkingProduct");
+      Statement state = con.createStatement();
 
-    String employee =
-        "INSERT INTO EMPLOYEES(FIRST_NAME,LAST_NAME) VALUES ('"
-            + firstName
-            + "', '"
-            + lastName
-            + "')";
+      String employee =
+          "INSERT INTO EMPLOYEES(FIRST_NAME,LAST_NAME) VALUES ('"
+              + firstName
+              + "', '"
+              + lastName
+              + "')";
 
-    PreparedStatement prep = con.prepareStatement(employee);
-    prep.executeUpdate();
+      PreparedStatement prep = con.prepareStatement(employee);
+      prep.executeUpdate();
 
-    instructions.appendText("You're response has been submitted" + "\n" + "Your username, password and email will be created shortly.");
-
+      instructions.appendText(
+          "You're response has been submitted"
+              + "\n"
+              + "Your username, password and email will be created shortly.");
+    }
   }
 
   Connection conn = null;
