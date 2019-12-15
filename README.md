@@ -12,7 +12,7 @@ I was a novice with Java but as the semester went along, I learned more complica
 
 ## Diagrams
 
-![Image description](https://tanis-02.github.io/ProductTracking/src/working/PUBLIC.png)
+![Image description](./src/working/PUBLIC.png)
 ## Getting Started
 
 
