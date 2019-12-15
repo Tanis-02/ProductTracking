@@ -8,7 +8,7 @@ I was a novice with Java but as the semester went along, I learned more complica
 ![](product_project.gif)
 
 ## Documentation
-[JavaDoc](https://tanis-02.github.io/ProductTracking/docs/index/index.html)
+[JavaDoc](https://tanis-02.github.io/ProductTracking/docs/index.html)
 
 ## Diagrams
 
