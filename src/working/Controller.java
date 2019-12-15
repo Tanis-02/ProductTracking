@@ -15,7 +15,7 @@ import java.sql.*;
  * @author Elizabeth Gonzalez
  */
 public class Controller {
-
+  
   @FXML private ChoiceBox<ItemType> itemTypeChB;
 
   @FXML private TextField productionTf;
