@@ -8,7 +8,7 @@ I was a novice with Java but as the semester went along, I learned more complica
 ![](./src/working/product_project.gif)
 
 ## Documentation
-[JavaDoc](./ProductTracking/docs/index.html)
+[JavaDoc](index.html)
 
 ## Diagrams
 
